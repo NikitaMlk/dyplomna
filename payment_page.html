@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Payment Page</h1>
+    <div id="service_details">
+        <!-- Service details will be displayed here -->
+    </div>
+
+    <script>
+        // Function to retrieve URL parameters
+        function getUrlParams() {
+            const searchParams = new URLSearchParams(window.location.search);
+            const params = {};
+
+            for (const [key, value] of searchParams) {
+                params[key] = value;
+            }
+
+            return params;
+        }
+
+        // Function to display service details
+        function displayServiceDetails() {
+            const params = getUrlParams();
+            const serviceDetailsElement = document.getElementById('service_details');
+
+            if (params.service_id && params.price && params.description) {
+                serviceDetailsElement.innerHTML = `
+                    <h2>Service Details</h2>
+                    <p>Service ID: ${params.service_id}</p>
+                    <p>Price: $${params.price}</p>
+                    <p>Description: ${decodeURIComponent(params.description)}</p>
+                `;
+            } else {
+                serviceDetailsElement.innerHTML = '<p>Invalid service details.</p>';
+            }
+        }
+
+        // Call the function when the page loads
+        displayServiceDetails();
+    </script>
+</body>
+</html>
